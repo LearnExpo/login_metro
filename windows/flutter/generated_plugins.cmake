@@ -3,6 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
+=======
+  firebase_auth
+  firebase_core
+>>>>>>> 8d3bf28 (firebase authentication)
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

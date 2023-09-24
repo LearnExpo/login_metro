@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -5,6 +6,24 @@ import 'newPage.dart';
 
 void main() {
   runApp(const MyApp());
+=======
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:login_metro/sign_up_page.dart';
+import 'firebase_auth_implementation/firebase_auth_services.dart';
+import 'firebase_auth_implementation/firebase_options.dart';
+
+import 'newPage.dart';
+
+void main() async {
+  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+>>>>>>> 8d3bf28 (firebase authentication)
 }
 
 class MyApp extends StatelessWidget {
@@ -37,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+<<<<<<< HEAD
   // Future<FirebaseApp> _initializeFirebase() async {
   //   FirebaseApp firebaseApp = await Firebase.initializeApp();
   //   return firebaseApp;
@@ -44,6 +64,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
+=======
+  addUser(String email, String password) async {
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+  }
+
+  void _signIn() async {
+    final FirebaseAuthService _auth = FirebaseAuthService();
+
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+    if (user != null) {
+      print("User is successfully signedIn");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => newPage()));
+    } else {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              height: 50,
+              child: Center(child: Text("Invalid EmailId or Password")),
+            );
+          });
+    }
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+>>>>>>> 8d3bf28 (firebase authentication)
     _emailController.dispose();
     super.dispose();
   }
@@ -182,6 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         const SizedBox(
+<<<<<<< HEAD
                           height: 40,
                         ),
                         GestureDetector(
@@ -191,6 +245,45 @@ class _MyHomePageState extends State<MyHomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: ((context) => const newPage())));
+=======
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("Don't have Account?"),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignUpPage()));
+                              },
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              _signIn();
+>>>>>>> 8d3bf28 (firebase authentication)
                             }
                           },
                           child: Container(
