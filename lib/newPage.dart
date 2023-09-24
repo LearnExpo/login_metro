@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-=======
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_metro/main.dart';
->>>>>>> 8d3bf28 (firebase authentication)
 
 class newPage extends StatelessWidget {
   const newPage({Key? key}) : super(key: key);
@@ -13,9 +9,6 @@ class newPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-<<<<<<< HEAD
-        child: Text("New Page.."),
-=======
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -48,7 +41,6 @@ class newPage extends StatelessWidget {
             )
           ],
         ),
->>>>>>> 8d3bf28 (firebase authentication)
       ),
     );
   }

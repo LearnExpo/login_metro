@@ -29,7 +29,3 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d3bf28 (firebase authentication)

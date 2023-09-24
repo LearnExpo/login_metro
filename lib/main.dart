@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
-
-import 'newPage.dart';
-
-void main() {
-  runApp(const MyApp());
-=======
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -23,7 +14,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
->>>>>>> 8d3bf28 (firebase authentication)
 }
 
 class MyApp extends StatelessWidget {
@@ -56,15 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-<<<<<<< HEAD
-  // Future<FirebaseApp> _initializeFirebase() async {
-  //   FirebaseApp firebaseApp = await Firebase.initializeApp();
-  //   return firebaseApp;
-  // }
-
-  @override
-  void dispose() {
-=======
   addUser(String email, String password) async {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
@@ -96,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     _passwordController.dispose();
->>>>>>> 8d3bf28 (firebase authentication)
     _emailController.dispose();
     super.dispose();
   }
@@ -235,17 +215,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         const SizedBox(
-<<<<<<< HEAD
-                          height: 40,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => const newPage())));
-=======
                           height: 10,
                         ),
                         Row(
@@ -283,7 +252,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               _signIn();
->>>>>>> 8d3bf28 (firebase authentication)
                             }
                           },
                           child: Container(
