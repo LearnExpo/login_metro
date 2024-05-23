@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_metro/main.dart';
-import 'package:login_metro/newPage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:login_metro/register/login_page.dart';
 import 'package:login_metro/widgets/form_container_widget.dart';
 
-import 'firebase_auth_implementation/firebase_auth_services.dart';
+import '../firebase_auth_implementation/firebase_auth_services.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,9 +18,27 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuthService _auth = FirebaseAuthService();
 
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _mobileNumberController = TextEditingController();
+
+  final TextEditingController _cityController = TextEditingController();
+
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -32,27 +52,46 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SignUp"),
+        title: const Text("SignUp"),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              SizedBox(
+                height: 40,
+              ),
+              const Text(
                 "Sign Up",
                 style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: _pickImage,
+                  child: CircleAvatar(
+                    radius: 80,
+                    backgroundColor: Colors.grey[300],
+                    backgroundImage: _image != null ? FileImage(_image!) : null,
+                    child: _image == null
+                        ? Icon(Icons.camera_alt,
+                            size: 50, color: Colors.grey[700])
+                        : null,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               FormContainerWidget(
                 controller: _usernameController,
                 hintText: "Username",
                 isPasswordField: false,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               FormContainerWidget(
@@ -60,7 +99,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 hintText: "Email",
                 isPasswordField: false,
               ),
-              SizedBox(
+              const SizedBox(
+                height: 10,
+              ),
+              FormContainerWidget(
+                controller: _mobileNumberController,
+                hintText: "Mobile Number",
+                isPasswordField: false,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              FormContainerWidget(
+                controller: _cityController,
+                hintText: "City",
+                isPasswordField: false,
+              ),
+              const SizedBox(
                 height: 10,
               ),
               FormContainerWidget(
@@ -68,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 hintText: "Password",
                 isPasswordField: true,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               GestureDetector(
@@ -80,7 +135,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "Sign Up",
                     style: TextStyle(
@@ -88,25 +143,24 @@ class _SignUpPageState extends State<SignUpPage> {
                   )),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
-                  SizedBox(
+                  const Text("Already have an account?"),
+                  const SizedBox(
                     width: 5,
                   ),
                   GestureDetector(
                       onTap: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyHomePage()),
-                            (route) => false);
+                                builder: (context) => LoginPage()));
                       },
-                      child: Text(
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold),
@@ -130,12 +184,12 @@ class _SignUpPageState extends State<SignUpPage> {
     if (user != null) {
       print("User is successfully created");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyHomePage()));
+          context, MaterialPageRoute(builder: (context) => const LoginPage()));
     } else {
       showModalBottomSheet(
           context: context,
           builder: (context) {
-            return Container(
+            return const SizedBox(
               height: 50,
               child: Center(
                   child: Text(

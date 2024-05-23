@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "688917138939",
+    "project_id": "metro-auth-20cc7",
+    "storage_bucket": "metro-auth-20cc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688917138939:android:3c5c6fc836d15111114f5e",
+        "android_client_info": {
+          "package_name": "com.example.login_metro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmjyt8rtOJ6aHDF55DwlpA1kmxj0NQ8og"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
